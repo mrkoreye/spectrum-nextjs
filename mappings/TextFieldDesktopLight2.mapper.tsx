@@ -19,13 +19,27 @@ interface FigmaTextFieldDesktopLightProps extends BaseFigmaProps {
 
 // Read more at https://www.builder.io/c/docs/mapping-functions
 figmaMapping({
-  componentKey: "89234c24c363e80cce71d1677985037bd119551e",
+  componentKey: "d7e16e9bc3abdde60a2b5918383e22d4de6c280c",
   mapper(figma: FigmaTextFieldDesktopLightProps) {
     const label = figma.$findOneByName("Label")?.$textContent;
     const helpText = figma.$findOneByName("Help Text")?.$textContent;
     const validation = figma.$findOneByName("Validation Checkmark");
 
+    const result = `
+      <TextField
+        label="${label}"
+        labelPosition="${figma["Label Position"] === "Top" ? "top" : "side"}"
+        isRequired="${figma["Asterisk ?"]}"
+        description="${helpText ?? undefined}"
+        validationState="${validation ? "valid" : undefined}
+        contextualHelp="${
+          figma["Help Text ?"] ? figma["Help Text"] : undefined
+        }"
+      />
+    `;
+
     console.log(figma);
+    console.log(result);
     return (
       <TextField
         label={label}
